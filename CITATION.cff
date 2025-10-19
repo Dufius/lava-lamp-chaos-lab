@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+title: 'Lava Lamp Chaos Lab: Testing AI Prediction in Chaotic Systems'
+message: >-
+  If you use this software in your research, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Your
+    family-names: Name
+    email: your.email@example.com
+    orcid: 'https://orcid.org/0000-0000-0000-0000'
+repository-code: 'https://github.com/Dufius/lava-lamp-chaos-lab'
+url: 'https://github.com/Dufius/lava-lamp-chaos-lab'
+abstract: >-
+  An open research project exploring the limits of AI pattern learning
+  using chaotic physical systems. This work investigates whether modern
+  machine learning models can predict deterministic but unpredictable
+  systems like lava lamp fluid dynamics, testing fundamental questions
+  about the boundaries of pattern recognition in the face of chaos theory.
+keywords:
+  - machine learning
+  - chaos theory
+  - pattern recognition
+  - fluid dynamics
+  - open science
+  - reproducible research
+license: MIT
+version: 0.1.0
+date-released: '2025-10-20'

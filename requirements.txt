@@ -1,0 +1,11 @@
+torch
+torchvision
+opencv-python
+numpy
+pillow
+matplotlib
+tqdm
+jupyter
+scikit-image
+black
+flake8
