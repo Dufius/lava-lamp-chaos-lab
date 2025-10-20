@@ -24,6 +24,8 @@ We're using **lava lamps** as our test case because they're:
 
 ## 🚀 Quick Start
 
+**See [QUICKSTART.md](QUICKSTART.md) for detailed setup instructions.**
+
 ```bash
 # Clone the repository
 git clone https://github.com/Dufius/lava-lamp-chaos-lab.git
@@ -36,14 +38,20 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Run baseline experiment
-python run_experiment.py
+# Generate test data
+python scripts/generate_test_data.py
+
+# Train a model
+python -m src.train --data-path data/samples --epochs 20 --model unet
+
+# Make predictions
+python -m src.predict --model-path checkpoints/best_model.pt --model-type unet --input data/samples/frame_000050.png
 ```
 
-For interactive exploration:
-```bash
-jupyter notebook notebooks/
-```
+**New to the project?** Start here:
+- [QUICKSTART.md](QUICKSTART.md) - Step-by-step setup guide
+- [docs/usage_examples.md](docs/usage_examples.md) - Comprehensive examples
+- [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md) - Full feature list
 
 ## 📊 Research Phases
 
@@ -110,8 +118,16 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## 📚 Documentation
 
+**Getting Started:**
+- **[QUICKSTART.md](QUICKSTART.md)**: Fast setup and first steps
+- **[Usage Examples](docs/usage_examples.md)**: Comprehensive code examples
+- **[Implementation Summary](IMPLEMENTATION_SUMMARY.md)**: Complete feature overview
+
+**Research:**
 - **[Experiment Overview](docs/experiment_overview.md)**: Detailed research methodology
 - **[Theory Background](docs/theory_background.md)**: Chaos theory and AI fundamentals
+
+**Contributing:**
 - **[Setup Guide](OSS_SETUP_GUIDE.md)**: Complete open-source project setup
 - **[Contributing Guidelines](CONTRIBUTING.md)**: How to get involved
 
@@ -141,10 +157,15 @@ Related work includes:
 
 - ✅ Repository structure established
 - ✅ CI/CD pipeline configured
-- ✅ Basic documentation written
-- ⏳ Baseline training pipeline (in progress)
-- 📋 First dataset collection (planned)
-- 📋 Initial model implementations (planned)
+- ✅ Comprehensive documentation written
+- ✅ **Data collection pipeline implemented**
+- ✅ **Three model architectures implemented** (SimpleCNN, U-Net, ConvLSTM)
+- ✅ **Complete training pipeline with checkpointing**
+- ✅ **Evaluation metrics and visualization tools**
+- ✅ **Inference and prediction pipeline**
+- ✅ **Synthetic test data generator**
+- 📋 First dataset collection with real lava lamp (ready to use)
+- 📋 Phase 1 experiments (ready to begin)
 
 ## 🌟 Why This Matters
 
