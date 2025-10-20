@@ -179,10 +179,10 @@ Related work includes:
 
 ## 📮 Get Involved
 
-- **GitHub Discussions**: Ask questions, share ideas
+- **GitHub**: [@Dufius](https://github.com/Dufius)
+- **Reddit**: [u/SamualZion](https://www.reddit.com/user/SamualZion/)
 - **Issues**: Report bugs, request features, propose experiments
 - **Pull Requests**: Contribute code, docs, or data
-- **Twitter**: Follow [@YourHandle] for updates (optional)
 
 ## 📄 License
 
@@ -201,7 +201,7 @@ If you use this project in your research, please cite:
 ```bibtex
 @software{lava_lamp_chaos_lab,
   title = {Lava Lamp Chaos Lab: Testing AI Prediction in Chaotic Systems},
-  author = {Your Name},
+  author = {Dufius},
   year = {2025},
   url = {https://github.com/Dufius/lava-lamp-chaos-lab}
 }

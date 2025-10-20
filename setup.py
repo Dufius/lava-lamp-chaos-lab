@@ -11,8 +11,8 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 setup(
     name="lava-lamp-chaos-lab",
     version="0.1.0",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="Dufius",
+    author_email="dufius@users.noreply.github.com",
     description="Testing AI prediction capabilities on chaotic physical systems",
     long_description=long_description,
     long_description_content_type="text/markdown",
