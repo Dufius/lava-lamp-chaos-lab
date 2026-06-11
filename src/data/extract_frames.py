@@ -18,7 +18,6 @@ python -m src.data.extract_frames \\
 import argparse
 import os
 import subprocess
-import tempfile
 
 import numpy as np
 from PIL import Image

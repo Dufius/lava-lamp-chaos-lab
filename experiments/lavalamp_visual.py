@@ -26,7 +26,6 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.utils.data import DataLoader, Dataset
 
 from src.models.light_encoder import LightDecoder, LightEncoder
-from src.models.rnn_predictor import GRUPredictor
 
 # ---------------------------------------------------------------------------
 # Model — end-to-end video predictor (no pretrained RNN)
@@ -102,7 +101,6 @@ class VideoPredictor(nn.Module):
         _, h = self.gru(z_ctx)  # prime hidden state
 
         z_last = self.head(self.gru(z_ctx)[0][:, -1])  # [B, latent_dim]
-        z_window = z_ctx  # growing context
 
         for _ in range(horizon):
             out, h = self.gru(z_last.unsqueeze(1), h)  # [B, 1, hidden_dim]
