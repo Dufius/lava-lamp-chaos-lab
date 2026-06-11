@@ -25,7 +25,9 @@ jobs:
       - name: Lint
         run: |
           black --check .
-          flake8 src --ignore=E501
+          flake8 src experiments --ignore=E501
 
       - name: Import check
-        run: python -m compileall src
+        run: |
+          python -m compileall src
+          python -m compileall experiments
