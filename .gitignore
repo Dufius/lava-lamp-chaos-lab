@@ -23,6 +23,10 @@ runs/
 *.ckpt
 *.npy
 
+# Raw video + extracted frames (large binary data)
+data/raw/
+data/frames/
+
 # Logs
 *.log
 *.out
