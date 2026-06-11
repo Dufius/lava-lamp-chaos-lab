@@ -5,7 +5,7 @@ from torch.utils.data import Dataset, DataLoader
 import cv2
 import numpy as np
 from pathlib import Path
-from typing import Tuple, Optional, List
+from typing import Tuple, Optional
 import torchvision.transforms as transforms
 
 
@@ -288,7 +288,7 @@ def create_dataloaders(
         pin_memory=True,
     )
 
-    print(f"📦 Created dataloaders:")
+    print("📦 Created dataloaders:")
     print(f"   Train samples: {train_size}")
     print(f"   Val samples: {val_size}")
     print(f"   Batch size: {batch_size}")

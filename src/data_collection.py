@@ -1,7 +1,6 @@
 """Data collection module for capturing lava lamp video footage."""
 
 import cv2
-import numpy as np
 from pathlib import Path
 from typing import Optional, Tuple
 from datetime import datetime

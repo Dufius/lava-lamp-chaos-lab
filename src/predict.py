@@ -8,11 +8,6 @@ from typing import List, Optional, Tuple
 import torchvision.transforms as transforms
 
 from .models import SimpleCNN, UNet, ConvLSTM
-from .evaluation import (
-    compute_metrics,
-    visualize_predictions,
-    visualize_prediction_sequence,
-)
 
 
 class Predictor:

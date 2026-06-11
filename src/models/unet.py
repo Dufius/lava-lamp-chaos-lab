@@ -143,7 +143,7 @@ class UNet(nn.Module):
 if __name__ == "__main__":
     # Test the model
     model = UNet()
-    print(f"UNet created")
+    print("UNet created")
     print(f"Parameters: {model.count_parameters():,}")
 
     # Test forward pass

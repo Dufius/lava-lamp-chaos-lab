@@ -185,7 +185,7 @@ class ConvLSTM(nn.Module):
 if __name__ == "__main__":
     # Test the model
     model = ConvLSTM()
-    print(f"ConvLSTM created")
+    print("ConvLSTM created")
     print(f"Parameters: {model.count_parameters():,}")
 
     # Test with single frame

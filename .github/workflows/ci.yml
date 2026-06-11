@@ -25,7 +25,7 @@ jobs:
       - name: Lint
         run: |
           black --check .
-          flake8 src experiments --ignore=E501
+          flake8 src experiments --ignore=E501,E203,W503,W504,E226
 
       - name: Import check
         run: |

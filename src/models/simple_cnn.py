@@ -106,7 +106,7 @@ class SimpleCNN(nn.Module):
 if __name__ == "__main__":
     # Test the model
     model = SimpleCNN()
-    print(f"SimpleCNN created")
+    print("SimpleCNN created")
     print(f"Parameters: {model.count_parameters():,}")
 
     # Test forward pass
