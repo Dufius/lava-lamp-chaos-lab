@@ -46,8 +46,8 @@ class PendulumVideoDataset(Dataset):
             frames = render_trajectory(cart, size=img_size)  # [T, 1, H, W]
             T = len(frames)
             for i in range(T - seq_len - 1):
-                ctx = frames[i : i + seq_len]   # view [seq_len, 1, H, W]
-                tgt = frames[i + seq_len]        # view [1, H, W]
+                ctx = frames[i : i + seq_len]  # view [seq_len, 1, H, W]
+                tgt = frames[i + seq_len]  # view [1, H, W]
                 self.samples.append((ctx, tgt))
 
     def __len__(self):

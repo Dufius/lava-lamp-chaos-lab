@@ -29,7 +29,7 @@ def render_state(cart_state, size=64, params=None):
     b2y = int(round(py - y2_n * scale))
 
     # Arms
-    draw.line([(px, py), (b1x, b1y)], fill=153, width=1)   # 0.6 * 255
+    draw.line([(px, py), (b1x, b1y)], fill=153, width=1)  # 0.6 * 255
     draw.line([(b1x, b1y), (b2x, b2y)], fill=153, width=1)
 
     # Pivot
