@@ -35,6 +35,8 @@ from src.models.rnn_predictor import GRUPredictor
 
 
 class PendulumVideoDataset(Dataset):
+    """Eager dataset: pre-renders all frames at init, getitem is O(1) tensor slice."""
+
     def __init__(self, trajectories, seq_len=30, img_size=64):
         self.seq_len = seq_len
         self.samples = []
@@ -44,8 +46,8 @@ class PendulumVideoDataset(Dataset):
             frames = render_trajectory(cart, size=img_size)  # [T, 1, H, W]
             T = len(frames)
             for i in range(T - seq_len - 1):
-                ctx = frames[i : i + seq_len]  # [seq_len, 1, H, W]
-                tgt = frames[i + seq_len]  # [1, H, W]
+                ctx = frames[i : i + seq_len]   # view [seq_len, 1, H, W]
+                tgt = frames[i + seq_len]        # view [1, H, W]
                 self.samples.append((ctx, tgt))
 
     def __len__(self):
@@ -192,7 +194,7 @@ def main():
     train_trajs = all_trajs[: args.n_train]
     test_trajs = all_trajs[args.n_train :]
 
-    print("  Building video datasets (this takes a moment)...")
+    print("  Building video datasets (rendering all frames)...")
     train_ds = PendulumVideoDataset(train_trajs, args.seq_len, args.img_size)
     val_ds = PendulumVideoDataset(
         test_trajs[: max(1, len(test_trajs) // 2)], args.seq_len, args.img_size
