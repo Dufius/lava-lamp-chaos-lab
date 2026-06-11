@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Training artefacts (large — keep source, not outputs)
+runs/
+*.pt
+*.pth
+*.ckpt
+*.npy
+
+# Logs
+*.log
+*.out
+
+# OS
+.DS_Store
+Thumbs.db
