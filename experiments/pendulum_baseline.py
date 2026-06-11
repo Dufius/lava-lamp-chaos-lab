@@ -11,6 +11,7 @@ python -m experiments.pendulum_baseline --eval-only --checkpoint runs/gru_best.p
 The key output is the prediction-horizon decay plot, which shows how quickly
 MSE grows beyond the Lyapunov time horizon (~2-4 s for a double pendulum).
 """
+
 import argparse
 import json
 import os
@@ -21,8 +22,6 @@ import torch
 import torch.nn as nn
 from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
-from tqdm import tqdm
-
 from src.envs.double_pendulum import PendulumParams, generate_trajectories, to_cartesian
 from src.models.rnn_predictor import GRUPredictor, LSTMPredictor, VRNNPredictor
 from src.pendulum_dataset import make_dataloaders
@@ -41,7 +40,9 @@ MODELS = {
 def build_model(name, state_dim=4, hidden_dim=128):
     if name == "vrnn":
         return VRNNPredictor(state_dim=state_dim, hidden_dim=hidden_dim, latent_dim=32)
-    return MODELS[name](state_dim=state_dim, hidden_dim=hidden_dim, num_layers=2, dropout=0.1)
+    return MODELS[name](
+        state_dim=state_dim, hidden_dim=hidden_dim, num_layers=2, dropout=0.1
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -143,11 +144,15 @@ def parse_args():
     p.add_argument("--seq-len", type=int, default=30)
     p.add_argument("--n-train", type=int, default=500, help="training trajectories")
     p.add_argument("--n-test", type=int, default=50, help="held-out test trajectories")
-    p.add_argument("--t-end", type=float, default=20.0, help="simulation seconds per traj")
+    p.add_argument(
+        "--t-end", type=float, default=20.0, help="simulation seconds per traj"
+    )
     p.add_argument("--dt", type=float, default=0.02, help="timestep (s)")
     p.add_argument("--beta", type=float, default=1.0, help="KL weight (VRNN only)")
     p.add_argument("--max-horizon", type=int, default=200, help="steps for decay plot")
-    p.add_argument("--runs-dir", default="runs", help="where to save checkpoints / plots")
+    p.add_argument(
+        "--runs-dir", default="runs", help="where to save checkpoints / plots"
+    )
     p.add_argument("--eval-only", action="store_true")
     p.add_argument("--checkpoint", default=None)
     p.add_argument("--device", default="auto")
@@ -228,7 +233,9 @@ def main():
                 torch.save(model.state_dict(), ckpt_best)
 
             if epoch % 10 == 0 or epoch == 1:
-                print(f"[{epoch:3d}/{args.epochs}] train={tr_loss:.5f}  val_mse={val_mse:.5f}")
+                print(
+                    f"[{epoch:3d}/{args.epochs}] train={tr_loss:.5f}  val_mse={val_mse:.5f}"
+                )
 
         with open(os.path.join(args.runs_dir, f"{args.model}_history.json"), "w") as f:
             json.dump(history, f)

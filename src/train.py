@@ -188,8 +188,10 @@ class Trainer:
             self.history["val_loss"].append(val_loss)
 
             # Print epoch summary
-            print(f"Epoch {epoch + 1}/{epochs} - "
-                  f"Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
+            print(
+                f"Epoch {epoch + 1}/{epochs} - "
+                f"Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}"
+            )
 
             # Save checkpoint
             if (epoch + 1) % save_every == 0:
@@ -336,19 +338,20 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="Train lava lamp prediction model")
-    parser.add_argument("--data-path", type=str, default="data/samples",
-                        help="Path to training data")
-    parser.add_argument("--epochs", type=int, default=10,
-                        help="Number of epochs")
-    parser.add_argument("--batch-size", type=int, default=4,
-                        help="Batch size")
-    parser.add_argument("--lr", type=float, default=1e-3,
-                        help="Learning rate")
-    parser.add_argument("--model", type=str, default="simple_cnn",
-                        choices=["simple_cnn", "unet", "conv_lstm"],
-                        help="Model architecture")
-    parser.add_argument("--device", type=str, default="auto",
-                        help="Device to use")
+    parser.add_argument(
+        "--data-path", type=str, default="data/samples", help="Path to training data"
+    )
+    parser.add_argument("--epochs", type=int, default=10, help="Number of epochs")
+    parser.add_argument("--batch-size", type=int, default=4, help="Batch size")
+    parser.add_argument("--lr", type=float, default=1e-3, help="Learning rate")
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="simple_cnn",
+        choices=["simple_cnn", "unet", "conv_lstm"],
+        help="Model architecture",
+    )
+    parser.add_argument("--device", type=str, default="auto", help="Device to use")
 
     args = parser.parse_args()
 

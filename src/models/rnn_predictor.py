@@ -12,9 +12,9 @@ VRNNPredictor — Variational RNN (Chung et al. 2015)
                 model can represent predictive uncertainty, which grows
                 exponentially in chaotic regimes.
 """
+
 import torch
 import torch.nn as nn
-
 
 # ---------------------------------------------------------------------------
 # Helpers

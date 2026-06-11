@@ -28,8 +28,7 @@ class Down(nn.Module):
     def __init__(self, in_channels: int, out_channels: int):
         super().__init__()
         self.maxpool_conv = nn.Sequential(
-            nn.MaxPool2d(2),
-            DoubleConv(in_channels, out_channels)
+            nn.MaxPool2d(2), DoubleConv(in_channels, out_channels)
         )
 
     def forward(self, x):
@@ -41,7 +40,9 @@ class Up(nn.Module):
 
     def __init__(self, in_channels: int, out_channels: int):
         super().__init__()
-        self.up = nn.ConvTranspose2d(in_channels, in_channels // 2, kernel_size=2, stride=2)
+        self.up = nn.ConvTranspose2d(
+            in_channels, in_channels // 2, kernel_size=2, stride=2
+        )
         self.conv = DoubleConv(in_channels, out_channels)
 
     def forward(self, x1, x2):
@@ -51,8 +52,9 @@ class Up(nn.Module):
         diffY = x2.size()[2] - x1.size()[2]
         diffX = x2.size()[3] - x1.size()[3]
 
-        x1 = nn.functional.pad(x1, [diffX // 2, diffX - diffX // 2,
-                                     diffY // 2, diffY - diffY // 2])
+        x1 = nn.functional.pad(
+            x1, [diffX // 2, diffX - diffX // 2, diffY // 2, diffY - diffY // 2]
+        )
 
         # Concatenate skip connection
         x = torch.cat([x2, x1], dim=1)
@@ -102,7 +104,7 @@ class UNet(nn.Module):
         # Output layer
         self.outc = nn.Sequential(
             nn.Conv2d(base_channels, out_channels, kernel_size=1),
-            nn.Sigmoid()  # Output in [0, 1] range
+            nn.Sigmoid(),  # Output in [0, 1] range
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:

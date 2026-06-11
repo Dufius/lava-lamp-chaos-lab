@@ -44,11 +44,13 @@ class LavaLampDataset(Dataset):
 
         # Default transforms
         if transform is None:
-            self.transform = transforms.Compose([
-                transforms.ToPILImage(),
-                transforms.Resize(frame_size),
-                transforms.ToTensor(),
-            ])
+            self.transform = transforms.Compose(
+                [
+                    transforms.ToPILImage(),
+                    transforms.Resize(frame_size),
+                    transforms.ToTensor(),
+                ]
+            )
         else:
             self.transform = transform
 
@@ -61,7 +63,9 @@ class LavaLampDataset(Dataset):
             raise ValueError(f"No frames found in {data_dir}")
 
         # Calculate valid indices (accounting for sequence and prediction)
-        self.valid_indices = len(self.frame_paths) - sequence_length - prediction_horizon + 1
+        self.valid_indices = (
+            len(self.frame_paths) - sequence_length - prediction_horizon + 1
+        )
 
         if self.valid_indices <= 0:
             raise ValueError(
@@ -194,7 +198,9 @@ class VideoDataset(Dataset):
             input_frames.append(frame_tensor)
 
         # Load target frame
-        target_idx = (idx + self.sequence_length + self.prediction_horizon - 1) * self.frame_skip
+        target_idx = (
+            idx + self.sequence_length + self.prediction_horizon - 1
+        ) * self.frame_skip
         cap.set(cv2.CAP_PROP_POS_FRAMES, target_idx)
         ret, target = cap.read()
         if not ret:

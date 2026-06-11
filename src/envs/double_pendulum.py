@@ -8,6 +8,7 @@ State space: [theta1, theta2, omega1, omega2]
 Model input/output uses Cartesian coordinates [x1, y1, x2, y2] so the
 network never sees angle wrap-around discontinuities.
 """
+
 from dataclasses import dataclass
 
 import numpy as np

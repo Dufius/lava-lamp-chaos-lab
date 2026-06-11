@@ -33,19 +33,22 @@ class SimpleCNN(nn.Module):
             nn.Conv2d(in_channels, base_channels, kernel_size=4, stride=2, padding=1),
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(base_channels),
-
             # Layer 2: 64 -> 32
-            nn.Conv2d(base_channels, base_channels * 2, kernel_size=4, stride=2, padding=1),
+            nn.Conv2d(
+                base_channels, base_channels * 2, kernel_size=4, stride=2, padding=1
+            ),
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(base_channels * 2),
-
             # Layer 3: 32 -> 16
-            nn.Conv2d(base_channels * 2, base_channels * 4, kernel_size=4, stride=2, padding=1),
+            nn.Conv2d(
+                base_channels * 2, base_channels * 4, kernel_size=4, stride=2, padding=1
+            ),
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(base_channels * 4),
-
             # Layer 4: 16 -> 8
-            nn.Conv2d(base_channels * 4, base_channels * 8, kernel_size=4, stride=2, padding=1),
+            nn.Conv2d(
+                base_channels * 4, base_channels * 8, kernel_size=4, stride=2, padding=1
+            ),
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(base_channels * 8),
         )
@@ -53,22 +56,27 @@ class SimpleCNN(nn.Module):
         # Decoder
         self.decoder = nn.Sequential(
             # Layer 1: 8 -> 16
-            nn.ConvTranspose2d(base_channels * 8, base_channels * 4, kernel_size=4, stride=2, padding=1),
+            nn.ConvTranspose2d(
+                base_channels * 8, base_channels * 4, kernel_size=4, stride=2, padding=1
+            ),
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(base_channels * 4),
-
             # Layer 2: 16 -> 32
-            nn.ConvTranspose2d(base_channels * 4, base_channels * 2, kernel_size=4, stride=2, padding=1),
+            nn.ConvTranspose2d(
+                base_channels * 4, base_channels * 2, kernel_size=4, stride=2, padding=1
+            ),
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(base_channels * 2),
-
             # Layer 3: 32 -> 64
-            nn.ConvTranspose2d(base_channels * 2, base_channels, kernel_size=4, stride=2, padding=1),
+            nn.ConvTranspose2d(
+                base_channels * 2, base_channels, kernel_size=4, stride=2, padding=1
+            ),
             nn.ReLU(inplace=True),
             nn.BatchNorm2d(base_channels),
-
             # Layer 4: 64 -> 128
-            nn.ConvTranspose2d(base_channels, out_channels, kernel_size=4, stride=2, padding=1),
+            nn.ConvTranspose2d(
+                base_channels, out_channels, kernel_size=4, stride=2, padding=1
+            ),
             nn.Sigmoid(),  # Output in [0, 1] range
         )
 

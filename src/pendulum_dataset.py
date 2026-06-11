@@ -5,9 +5,10 @@ Each sample is a (context, target) pair of Cartesian joint positions.
 The model receives a window of `seq_len` past positions and must predict
 the next `horizon` positions auto-regressively during evaluation.
 """
+
 import numpy as np
 import torch
-from torch.utils.data import Dataset, DataLoader, random_split
+from torch.utils.data import Dataset, DataLoader
 
 from src.envs.double_pendulum import to_cartesian
 
@@ -50,6 +51,8 @@ def make_dataloaders(trajectories, seq_len=30, horizon=1, batch_size=256, val_fr
     train_ds = PendulumDataset(train_trajs, seq_len, horizon)
     val_ds = PendulumDataset(val_trajs, seq_len, horizon)
 
-    train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=0)
+    train_loader = DataLoader(
+        train_ds, batch_size=batch_size, shuffle=True, num_workers=0
+    )
     val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=False, num_workers=0)
     return train_loader, val_loader

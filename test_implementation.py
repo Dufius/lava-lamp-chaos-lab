@@ -37,6 +37,7 @@ def test_dataset():
 
     try:
         from src.dataset import LavaLampDataset, VideoDataset
+
         print("  ✓ Dataset modules imported successfully")
         return True
     except Exception as e:
@@ -56,9 +57,9 @@ def test_evaluation():
 
         metrics = compute_metrics(pred, target)
 
-        assert hasattr(metrics, 'mse'), "Missing MSE metric"
-        assert hasattr(metrics, 'ssim'), "Missing SSIM metric"
-        assert hasattr(metrics, 'psnr'), "Missing PSNR metric"
+        assert hasattr(metrics, "mse"), "Missing MSE metric"
+        assert hasattr(metrics, "ssim"), "Missing SSIM metric"
+        assert hasattr(metrics, "psnr"), "Missing PSNR metric"
 
         print(f"  ✓ Metrics computed: MSE={metrics.mse:.4f}, SSIM={metrics.ssim:.4f}")
         return True
@@ -73,6 +74,7 @@ def test_predictor():
 
     try:
         from src.predict import Predictor
+
         print("  ✓ Predictor module imported successfully")
         return True
     except Exception as e:
@@ -104,6 +106,7 @@ def test_data_collection():
 
     try:
         from src.data_collection import VideoCapture, extract_frames_from_video
+
         print("  ✓ Data collection modules imported successfully")
         return True
     except Exception as e:

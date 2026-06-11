@@ -8,7 +8,11 @@ from typing import List, Optional, Tuple
 import torchvision.transforms as transforms
 
 from .models import SimpleCNN, UNet, ConvLSTM
-from .evaluation import compute_metrics, visualize_predictions, visualize_prediction_sequence
+from .evaluation import (
+    compute_metrics,
+    visualize_predictions,
+    visualize_prediction_sequence,
+)
 
 
 class Predictor:
@@ -80,10 +84,12 @@ class Predictor:
         frame = cv2.resize(frame, self.frame_size)
 
         # Convert to tensor and normalize
-        transform = transforms.Compose([
-            transforms.ToPILImage(),
-            transforms.ToTensor(),
-        ])
+        transform = transforms.Compose(
+            [
+                transforms.ToPILImage(),
+                transforms.ToTensor(),
+            ]
+        )
 
         frame_tensor = transform(frame)
 
@@ -248,19 +254,26 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="Make predictions with trained model")
-    parser.add_argument("--model-path", type=str, required=True,
-                        help="Path to model checkpoint")
-    parser.add_argument("--model-type", type=str, default="simple_cnn",
-                        choices=["simple_cnn", "unet", "conv_lstm"],
-                        help="Model architecture")
-    parser.add_argument("--input", type=str, required=True,
-                        help="Input image or video path")
-    parser.add_argument("--output", type=str, default="prediction.png",
-                        help="Output path")
-    parser.add_argument("--steps", type=int, default=1,
-                        help="Number of steps to predict (for sequence)")
-    parser.add_argument("--device", type=str, default="auto",
-                        help="Device to use")
+    parser.add_argument(
+        "--model-path", type=str, required=True, help="Path to model checkpoint"
+    )
+    parser.add_argument(
+        "--model-type",
+        type=str,
+        default="simple_cnn",
+        choices=["simple_cnn", "unet", "conv_lstm"],
+        help="Model architecture",
+    )
+    parser.add_argument(
+        "--input", type=str, required=True, help="Input image or video path"
+    )
+    parser.add_argument(
+        "--output", type=str, default="prediction.png", help="Output path"
+    )
+    parser.add_argument(
+        "--steps", type=int, default=1, help="Number of steps to predict (for sequence)"
+    )
+    parser.add_argument("--device", type=str, default="auto", help="Device to use")
 
     args = parser.parse_args()
 

@@ -57,12 +57,14 @@ class VideoCapture:
 
         # Define codec and create VideoWriter
         fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-        out = cv2.VideoWriter(
-            str(output_path), fourcc, self.fps, self.frame_size
-        )
+        out = cv2.VideoWriter(str(output_path), fourcc, self.fps, self.frame_size)
 
         print(f"🎥 Starting capture to {output_path}")
-        print(f"   Target duration: {duration_seconds}s" if duration_seconds else "   Press 'q' to stop")
+        print(
+            f"   Target duration: {duration_seconds}s"
+            if duration_seconds
+            else "   Press 'q' to stop"
+        )
 
         frame_count = 0
         max_frames = duration_seconds * self.fps if duration_seconds else None
@@ -179,7 +181,9 @@ if __name__ == "__main__":
     choice = input("Select option (1 or 2): ").strip()
 
     if choice == "1":
-        duration = input("Duration in seconds (or press Enter for manual stop): ").strip()
+        duration = input(
+            "Duration in seconds (or press Enter for manual stop): "
+        ).strip()
         duration_sec = int(duration) if duration else None
 
         capturer = VideoCapture()

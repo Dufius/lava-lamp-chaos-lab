@@ -160,7 +160,7 @@ def compute_prediction_horizon_metrics(
             prediction = model(current_frame)
 
             # Compute metrics against ground truth
-            target = target_frames[horizon - 1:horizon].to(device)
+            target = target_frames[horizon - 1 : horizon].to(device)
             metrics = compute_metrics(prediction, target)
 
             horizon_metrics[horizon] = metrics

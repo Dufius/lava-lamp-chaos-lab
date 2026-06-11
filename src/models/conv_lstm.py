@@ -21,7 +21,7 @@ class ConvLSTMCell(nn.Module):
             out_channels=4 * hidden_dim,
             kernel_size=kernel_size,
             padding=padding,
-            bias=True
+            bias=True,
         )
 
     def forward(self, input_tensor, cur_state):
@@ -37,7 +37,7 @@ class ConvLSTMCell(nn.Module):
         i = torch.sigmoid(cc_i)  # Input gate
         f = torch.sigmoid(cc_f)  # Forget gate
         o = torch.sigmoid(cc_o)  # Output gate
-        g = torch.tanh(cc_g)     # Cell gate
+        g = torch.tanh(cc_g)  # Cell gate
 
         # Update cell and hidden state
         c_next = f * c_cur + i * g
@@ -48,8 +48,20 @@ class ConvLSTMCell(nn.Module):
     def init_hidden(self, batch_size, image_size):
         height, width = image_size
         return (
-            torch.zeros(batch_size, self.hidden_dim, height, width, device=self.conv.weight.device),
-            torch.zeros(batch_size, self.hidden_dim, height, width, device=self.conv.weight.device)
+            torch.zeros(
+                batch_size,
+                self.hidden_dim,
+                height,
+                width,
+                device=self.conv.weight.device,
+            ),
+            torch.zeros(
+                batch_size,
+                self.hidden_dim,
+                height,
+                width,
+                device=self.conv.weight.device,
+            ),
         )
 
 
@@ -95,7 +107,7 @@ class ConvLSTM(nn.Module):
                 ConvLSTMCell(
                     input_dim=cur_input_dim,
                     hidden_dim=hidden_dims[i],
-                    kernel_size=kernel_size
+                    kernel_size=kernel_size,
                 )
             )
         self.cell_list = nn.ModuleList(cell_list)
@@ -105,7 +117,7 @@ class ConvLSTM(nn.Module):
             nn.Conv2d(hidden_dims[-1], hidden_dims[-1], kernel_size=3, padding=1),
             nn.ReLU(inplace=True),
             nn.Conv2d(hidden_dims[-1], out_channels, kernel_size=1),
-            nn.Sigmoid()  # Output in [0, 1] range
+            nn.Sigmoid(),  # Output in [0, 1] range
         )
 
     def forward(self, x: torch.Tensor, hidden_state=None) -> torch.Tensor:
@@ -162,9 +174,7 @@ class ConvLSTM(nn.Module):
         """Initialize hidden states for all layers."""
         init_states = []
         for i in range(self.num_layers):
-            init_states.append(
-                self.cell_list[i].init_hidden(batch_size, image_size)
-            )
+            init_states.append(self.cell_list[i].init_hidden(batch_size, image_size))
         return init_states
 
     def count_parameters(self) -> int:
