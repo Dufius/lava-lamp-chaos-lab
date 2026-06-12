@@ -18,6 +18,7 @@ env/
 
 # Training artefacts (large — keep source, not outputs)
 runs/
+checkpoints/
 *.pt
 *.pth
 *.ckpt
@@ -26,6 +27,7 @@ runs/
 # Raw video + extracted frames (large binary data)
 data/raw/
 data/frames/
+data/samples/frame_*.png
 
 # Logs
 *.log
