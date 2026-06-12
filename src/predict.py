@@ -101,7 +101,12 @@ class Predictor:
             tensor: Output tensor [1, C, H, W]
 
         Returns:
-            Image as numpy array [H, W, C]
+            Image as numpy array [H, W, C] in BGR order. The model works in
+            RGB (preprocess_frame converts BGR->RGB on the way in), so we
+            convert back here — that keeps a single convention: frames
+            entering and leaving this class are BGR, matching cv2.imread,
+            cv2.imwrite, VideoWriter, and the autoregressive feedback in
+            predict_sequence (which re-feeds outputs through preprocess_frame).
         """
         # Remove batch dimension and move to CPU
         frame = tensor.squeeze(0).cpu().numpy()
@@ -114,6 +119,9 @@ class Predictor:
 
         # Convert to uint8
         frame = (frame * 255).astype(np.uint8)
+
+        # RGB -> BGR for cv2 consumers
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
         return frame
 
