@@ -65,6 +65,18 @@ python -c "from src.data_collection import extract_frames_from_video; extract_fr
 python run_experiment.py
 ```
 
+**Choose a training device** (both `run_experiment.py` and `src.train` accept `--device`):
+```bash
+python run_experiment.py --device cpu     # force CPU
+python run_experiment.py --device cuda    # force GPU
+python run_experiment.py --device hybrid  # split model across GPU + CPU
+python run_experiment.py --device auto    # default: GPU if available
+```
+
+Hybrid mode places layers on the GPU in forward order until a VRAM budget
+is reached and keeps the rest on CPU — useful when a model doesn't fit in
+GPU memory. It requires CUDA and falls back to CPU otherwise.
+
 **Train with specific configuration**:
 ```bash
 python -m src.train \

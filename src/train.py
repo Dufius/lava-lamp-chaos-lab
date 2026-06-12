@@ -11,6 +11,7 @@ from tqdm import tqdm
 import time
 
 from .dataset import create_dataloaders
+from .device_placement import apply_hybrid_placement
 from .models import SimpleCNN, UNet, ConvLSTM
 
 
@@ -28,16 +29,25 @@ class Trainer:
 
         Args:
             model: PyTorch model to train
-            device: Device to use ('cuda', 'cpu', or 'auto')
+            device: Device to use ('cuda', 'cpu', 'hybrid', or 'auto')
             checkpoint_dir: Directory to save checkpoints
         """
         # Set device
         if device == "auto":
             self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            self.model = model.to(self.device)
+        elif device == "hybrid":
+            if torch.cuda.is_available():
+                # Model split across GPU and CPU; inputs go to the first unit
+                self.device = apply_hybrid_placement(model)
+            else:
+                print("⚠️  Hybrid mode requires CUDA — falling back to CPU")
+                self.device = torch.device("cpu")
+                model.to(self.device)
+            self.model = model
         else:
             self.device = torch.device(device)
-
-        self.model = model.to(self.device)
+            self.model = model.to(self.device)
         self.checkpoint_dir = Path(checkpoint_dir)
         self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
@@ -79,7 +89,8 @@ class Trainer:
             # Forward pass
             optimizer.zero_grad()
             outputs = self.model(inputs)
-            loss = criterion(outputs, targets)
+            # In hybrid mode the output device can differ from the input device
+            loss = criterion(outputs, targets.to(outputs.device))
 
             # Backward pass
             loss.backward()
@@ -123,7 +134,7 @@ class Trainer:
 
                 # Forward pass
                 outputs = self.model(inputs)
-                loss = criterion(outputs, targets)
+                loss = criterion(outputs, targets.to(outputs.device))
 
                 # Update metrics
                 total_loss += loss.item()
@@ -351,7 +362,14 @@ def main():
         choices=["simple_cnn", "unet", "conv_lstm"],
         help="Model architecture",
     )
-    parser.add_argument("--device", type=str, default="auto", help="Device to use")
+    parser.add_argument(
+        "--device",
+        type=str,
+        default="auto",
+        choices=["auto", "cpu", "cuda", "hybrid"],
+        help="Device to use: cpu, cuda, hybrid (model split across GPU+CPU), "
+        "or auto (cuda if available)",
+    )
 
     args = parser.parse_args()
 
